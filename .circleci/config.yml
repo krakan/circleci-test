@@ -7,7 +7,7 @@ jobs:
     steps:
       - checkout
       - run: echo "A first hello"
-      - run: date | tee -a my_workspace/echo-output
+      - run: mkdir -p my_workspace; date | tee -a my_workspace/echo-output
       - persist_to_workspace:
           root: my_workspace
           paths:
@@ -24,7 +24,7 @@ jobs:
       - run: sleep 15
       - attach_workspace:
           at: my_workspace
-      - run: mkdir -p my_workspace; date | tee -a my_workspace/echo-output
+      - run: date | tee -a my_workspace/echo-output
       - persist_to_workspace:
           root: my_workspace
           paths:
