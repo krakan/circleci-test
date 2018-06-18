@@ -25,10 +25,6 @@ jobs:
       - attach_workspace:
           at: my_workspace
       - run: date | tee -a my_workspace/echo-output
-      - persist_to_workspace:
-          root: my_workspace
-          paths:
-            - echo-output
 
   three:
     docker:
