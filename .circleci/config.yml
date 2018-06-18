@@ -9,7 +9,7 @@ jobs:
       - run: echo "A first hello"
       - attach_workspace:
           at: my_workspace
-      - run: date | tee -a my_workspace/echo-output
+      - run: mkdir -p my_workspace; date | tee -a my_workspace/echo-output
       - run: sleep 25
       - run: echo "A second hello"
 
@@ -20,7 +20,7 @@ jobs:
       - checkout
       - run: echo "A more familiar hi"
       - run: sleep 15
-      - run: date | tee -a my_workspace/echo-output
+      - run: mkdir -p my_workspace; date | tee -a my_workspace/echo-output
       - persist_to_workspace:
           root: my_workspace
           paths:
