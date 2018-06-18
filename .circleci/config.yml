@@ -8,6 +8,7 @@ jobs:
       - checkout
       - run: echo "A first hello"
       - run: |
+          #!/bin/bash -ex
           mkdir -p my_workspace
           date | tee -a my_workspace/echo-output
       - persist_to_workspace:
