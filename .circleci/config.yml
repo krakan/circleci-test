@@ -1,8 +1,47 @@
 version: 2
 jobs:
-  build:
+
+  one:
     docker:
       - image: circleci/ruby:2.4.1
     steps:
       - checkout
       - run: echo "A first hello"
+      - attach_workspace:
+          at: my_workspace
+      - run: date | tee -a my_workspace/echo-output
+      - run: sleep 25
+      - run: echo "A second hello"
+
+  two:
+    docker:
+      - image: circleci/ruby:2.4.1
+    steps:
+      - checkout
+      - run: echo "A more familiar hi"
+      - run: sleep 15
+      - run: date | tee -a my_workspace/echo-output
+      - persist_to_workspace:
+          root: my_workspace
+          paths:
+            - echo-output
+
+  three:
+    docker:
+      - image: circleci/ruby:2.4.1
+    steps:
+      - run: echo "Farewell!"
+      - attach_workspace:
+          at: my_workspace
+      - run: cat my_workspace/echo-output
+
+workflows:
+  version: 2
+  one_two_three:
+    jobs:
+      - one
+      - two
+      - three:
+          requires:
+            - one
+            - two
